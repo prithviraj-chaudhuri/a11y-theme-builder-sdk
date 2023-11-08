@@ -131,8 +131,15 @@ export class DesignSystem extends Node implements IDesignSystem {
     }
 
     public async store() {
-        this.updateMetadata();
-        await this.themeBuilder.storage.set(this.name, this.serialize());
+        //Load old file
+        await this.themeBuilder.storage.get(this.name).then(res => {
+            console.log(res);
+            this.updateMetadata();
+            this.themeBuilder.storage.set(this.name, this.serialize());
+        });
+        //Get difference
+        //Create a file with the difference
+        //Store in a different json with timestamp
     }
 
     /**
